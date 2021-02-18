@@ -1,4 +1,4 @@
-package org.apache.xmlbeans.plugins;
+package org.apache.xmlbeans;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +24,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.xml.resolver.CatalogManager;
 import org.apache.xml.resolver.tools.CatalogResolver;
 import org.apache.xmlbeans.impl.tool.SchemaCompiler;
+import org.apache.xmlbeans.XmlError;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -253,7 +254,7 @@ public class ScompMojo extends AbstractMojo {
 			params.setNoUpa(false);
 			params.setNoPvr(false);
 			params.setDebug(true);
-			params.setErrorListener(new ArrayList<Object>());
+			params.setErrorListener(new ArrayList<XmlError>());
 			params.setRepackage(null);
 			params.setExtensions(null);
 			params.setMdefNamespaces(null);
@@ -263,8 +264,8 @@ public class ScompMojo extends AbstractMojo {
 			
 			if (!result) {
 				@SuppressWarnings("unchecked")
-				Collection<Object> errors = params.getErrorListener();
-				for (Iterator<Object> iterator = errors.iterator(); iterator.hasNext();) {
+				Collection<XmlError> errors = params.getErrorListener();
+				for (Iterator<XmlError> iterator = errors.iterator(); iterator.hasNext();) {
 					Object o = (Object) iterator.next();
 					System.out.println("xmlbeans error: " + o);
 				}
